@@ -11,5 +11,8 @@
         <module name="lab2" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="parallel-labs" target="20" />
+    </bytecodeTargetLevel>
   </component>
 </project>
