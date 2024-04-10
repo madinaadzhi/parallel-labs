@@ -11,39 +11,39 @@ public class Main {
         MatrixGenerator randomMatrixGenerator = new MatrixGenerator();
 
         int SIZE = 8;
-        Matrix matrix3 = new Matrix(new int[][]{
-                {1, 5},
-                {2, 3},
-                {1, 7}
-        });
+//        Matrix matrix1 = new Matrix(new int[][]{
+//                {1, 5},
+//                {2, 3},
+//                {1, 7}
+//        });
+//
+//        Matrix matrix2 = new Matrix(new int[][]{
+//                {1, 2, 3, 7},
+//                {5, 2, 8, 1}
+//        });
 
-        Matrix matrix4 = new Matrix(new int[][]{
-                {1, 2, 3, 7},
-                {5, 2, 8, 1}
-        });
+        Matrix matrix1 = new Matrix(randomMatrixGenerator.generateRandomMatrix(SIZE, SIZE).getMatrix());
+        Matrix matrix2 = new Matrix(randomMatrixGenerator.generateRandomMatrix(SIZE, SIZE).getMatrix());
 
-//        Matrix matrix3 = new Matrix(randomMatrixGenerator.generateRandomMatrix(SIZE, SIZE).getMatrix());
-//        Matrix matrix4 = new Matrix(randomMatrixGenerator.generateRandomMatrix(SIZE, SIZE).getMatrix());
-
-        System.out.println("Matrix 3:");
-        matrix3.print();
+        System.out.println("Matrix 1:");
+        matrix1.print();
         System.out.println();
 
-        System.out.println("Matrix 4:");
-        matrix4.print();
+        System.out.println("Matrix 2:");
+        matrix2.print();
         System.out.println();
 
         Striped striped = new Striped();
-        Matrix stripedResult = new Matrix(striped.multiply(matrix3, matrix4).getMatrix());
+        Matrix stripedResult = new Matrix(striped.multiply(matrix1, matrix2).getMatrix());
         System.out.println("Striped result:");
         stripedResult.print();
 
         MultithreadMultiplication multithreadMultiplication = new MultithreadMultiplication();
         System.out.println("Multithread multiplication result:");
-        Matrix multithreadResult = new Matrix(multithreadMultiplication.multiply(matrix3, matrix4, 4).getMatrix());
+        Matrix multithreadResult = new Matrix(multithreadMultiplication.multiply(matrix1, matrix1, 4).getMatrix());
         multithreadResult.print();
 
-        Fox fox = new Fox(matrix3, matrix4, 4);
+        Fox fox = new Fox(matrix1, matrix2, 4);
         System.out.println("Fox result:");
         Matrix foxResult = new Matrix(fox.multiply().getMatrix());
         foxResult.print();
