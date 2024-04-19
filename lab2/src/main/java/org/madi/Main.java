@@ -9,18 +9,7 @@ import org.madi.lab2.striped.Striped;
 public class Main {
     public static void main(String[] args) {
         MatrixGenerator randomMatrixGenerator = new MatrixGenerator();
-
         int SIZE = 8;
-//        Matrix matrix1 = new Matrix(new int[][]{
-//                {1, 5},
-//                {2, 3},
-//                {1, 7}
-//        });
-//
-//        Matrix matrix2 = new Matrix(new int[][]{
-//                {1, 2, 3, 7},
-//                {5, 2, 8, 1}
-//        });
 
         Matrix matrix1 = new Matrix(randomMatrixGenerator.generateRandomMatrix(SIZE, SIZE).getMatrix());
         Matrix matrix2 = new Matrix(randomMatrixGenerator.generateRandomMatrix(SIZE, SIZE).getMatrix());
@@ -33,15 +22,15 @@ public class Main {
         matrix2.print();
         System.out.println();
 
+        Basic basic = new Basic(matrix1, matrix2);
+        System.out.println("Basic result:");
+        Matrix basicResult = new Matrix(basic.multiply().getMatrix());
+        basicResult.print();
+
         Striped striped = new Striped(matrix1, matrix2, 4);
         Matrix stripedResult = new Matrix(striped.multiply().getMatrix());
         System.out.println("Striped result:");
         stripedResult.print();
-
-        Basic basic = new Basic(matrix1, matrix1);
-        System.out.println("Basic result:");
-        Matrix basicResult = new Matrix(basic.multiply().getMatrix());
-        basicResult.print();
 
         Fox fox = new Fox(matrix1, matrix2, 4);
         System.out.println("Fox result:");

@@ -22,19 +22,19 @@ public class FirstExperiment {
                         .generateRandomMatrix(MATRIXSIZE, MATRIXSIZE)
                         .getMatrix());
 
-        Striped striped = new Striped(matrix1, matrix2, THREADSCOUNT);
         Basic basic = new Basic(matrix1, matrix2);
+        Striped striped = new Striped(matrix1, matrix2, THREADSCOUNT);
         Fox fox = new Fox(matrix1, matrix2, THREADSCOUNT);
-
-        startTime = System.currentTimeMillis();
-        Matrix strRes = new Matrix(striped.multiply().getMatrix());
-        endTime = System.currentTimeMillis();
-        System.out.println("Striped: " + (endTime - startTime) + " ms " + "for " + MATRIXSIZE + " matrix size" );
 
         startTime = System.currentTimeMillis();
         Matrix basicRes = new Matrix(basic.multiply().getMatrix());
         endTime = System.currentTimeMillis();
         System.out.println("Basic: " + (endTime - startTime) + " ms " + "for " + MATRIXSIZE + " matrix size" );
+
+        startTime = System.currentTimeMillis();
+        Matrix strRes = new Matrix(striped.multiply().getMatrix());
+        endTime = System.currentTimeMillis();
+        System.out.println("Striped: " + (endTime - startTime) + " ms " + "for " + MATRIXSIZE + " matrix size" );
 
         startTime = System.currentTimeMillis();
         Matrix foxRes = new Matrix(fox.multiply().getMatrix());
