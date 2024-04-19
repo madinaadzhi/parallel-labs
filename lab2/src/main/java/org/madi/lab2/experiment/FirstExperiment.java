@@ -1,8 +1,8 @@
 package org.madi.lab2.experiment;
 
+import org.madi.lab2.Basic;
 import org.madi.lab2.Matrix;
 import org.madi.lab2.MatrixGenerator;
-import org.madi.lab2.MultithreadMultiplication;
 import org.madi.lab2.fox.Fox;
 import org.madi.lab2.striped.Striped;
 
@@ -22,19 +22,19 @@ public class FirstExperiment {
                         .generateRandomMatrix(MATRIXSIZE, MATRIXSIZE)
                         .getMatrix());
 
-        Striped striped = new Striped();
-        MultithreadMultiplication multithreadMultiplication = new MultithreadMultiplication();
+        Striped striped = new Striped(matrix1, matrix2, THREADSCOUNT);
+        Basic basic = new Basic(matrix1, matrix2);
         Fox fox = new Fox(matrix1, matrix2, THREADSCOUNT);
 
         startTime = System.currentTimeMillis();
-        Matrix strRes = new Matrix(striped.multiply(matrix1, matrix2).getMatrix());
+        Matrix strRes = new Matrix(striped.multiply().getMatrix());
         endTime = System.currentTimeMillis();
         System.out.println("Striped: " + (endTime - startTime) + " ms " + "for " + MATRIXSIZE + " matrix size" );
 
         startTime = System.currentTimeMillis();
-        Matrix multithreadRes = new Matrix(multithreadMultiplication.multiply(matrix1, matrix2, THREADSCOUNT).getMatrix());
+        Matrix basicRes = new Matrix(basic.multiply().getMatrix());
         endTime = System.currentTimeMillis();
-        System.out.println("Multithreaded multiplication: " + (endTime - startTime) + " ms " + "for " + MATRIXSIZE + " matrix size" );
+        System.out.println("Basic: " + (endTime - startTime) + " ms " + "for " + MATRIXSIZE + " matrix size" );
 
         startTime = System.currentTimeMillis();
         Matrix foxRes = new Matrix(fox.multiply().getMatrix());
@@ -44,7 +44,7 @@ public class FirstExperiment {
         // Check results
         for (int i = 0; i < MATRIXSIZE; i++) {
             for (int j = 0; j < MATRIXSIZE; j++) {
-                if (strRes.get(i, j) != multithreadRes.get(i, j) || strRes.get(i, j) != foxRes.get(i, j)) {
+                if (strRes.get(i, j) != basicRes.get(i, j) || strRes.get(i, j) != foxRes.get(i, j)) {
                     System.out.println("Error");
                     return;
                 }

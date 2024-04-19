@@ -1,8 +1,8 @@
 package org.madi;
 
+import org.madi.lab2.Basic;
 import org.madi.lab2.Matrix;
 import org.madi.lab2.MatrixGenerator;
-import org.madi.lab2.MultithreadMultiplication;
 import org.madi.lab2.fox.Fox;
 import org.madi.lab2.striped.Striped;
 
@@ -38,10 +38,10 @@ public class Main {
         System.out.println("Striped result:");
         stripedResult.print();
 
-        MultithreadMultiplication multithreadMultiplication = new MultithreadMultiplication();
-        System.out.println("Multithread multiplication result:");
-        Matrix multithreadResult = new Matrix(multithreadMultiplication.multiply(matrix1, matrix1, 4).getMatrix());
-        multithreadResult.print();
+        Basic basic = new Basic(matrix1, matrix1);
+        System.out.println("Basic result:");
+        Matrix basicResult = new Matrix(basic.multiply().getMatrix());
+        basicResult.print();
 
         Fox fox = new Fox(matrix1, matrix2, 4);
         System.out.println("Fox result:");
