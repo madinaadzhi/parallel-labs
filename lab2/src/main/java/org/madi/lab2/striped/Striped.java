@@ -1,23 +1,47 @@
 package org.madi.lab2.striped;
 
+import lombok.*;
 import org.madi.lab2.Matrix;
 
+import java.util.ArrayList;
+
+@Getter
+@Setter
+@RequiredArgsConstructor
 public class Striped {
-    public Matrix multiply(Matrix matrix1, Matrix matrix2) {
-        if (matrix1.getColumnSize() != matrix2.getRowSize()) {
-            throw new IllegalArgumentException("matrices cannot be multiplied because the " +
-                    "number of columns of matrix A is not equal to the number of rows of matrix B.");
+    private Matrix matrix1;
+    private Matrix matrix2;
+    private int threadsCnt;
+
+    public Striped(Matrix matrix1, Matrix matrix2, int threadsCnt) {
+        this.matrix1 = matrix1;
+        this.matrix2 = matrix2;
+        this.threadsCnt = threadsCnt;
+    }
+
+    public Matrix multiply() {
+        Matrix resultMatrix = new Matrix(matrix1.getRowSize(), matrix2.getColumnSize());
+        resultMatrix = multiplyMatrices(resultMatrix);
+        return resultMatrix;
+    }
+
+    public Matrix multiplyMatrices(Matrix matrix) {
+        ArrayList<StripedThread> threads = new ArrayList<>();
+
+        for (int i = 0; i < matrix1.getRowSize(); i++) {
+            StripedThread t = new StripedThread(matrix1.getRow(i), i, matrix2);
+            threads.add(t);
+            threads.get(i).start();
         }
 
-        Matrix resultMatrix = new Matrix(matrix1.getRowSize(), matrix2.getColumnSize());
-        for (int i = 0; i < matrix1.getRowSize(); i++) {
-            for (int j = 0; j < matrix2.getColumnSize(); j++) {
-                for (int k = 0; k < matrix1.getColumnSize(); k++) {
-                    resultMatrix.set(i, j, resultMatrix.get(i, j) + matrix1.get(i, k) * matrix2.get(k, j));
-                }
+        for (StripedThread t : threads) {
+            try {
+                t.join();
+                matrix.getMatrix()[t.getRowIndex()] = t.getResult();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
-
-        return resultMatrix;
+        return matrix;
     }
 }

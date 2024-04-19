@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class MultithreadMultiplication {
     public Matrix multiply(Matrix matrix1, Matrix matrix2, int threadsCnt) {
         if (matrix1.getColumnSize() != matrix2.getRowSize()) {
-            throw new IllegalArgumentException("matrices cannot be multiplied because the " +
+            throw new IllegalArgumentException("Matrices cannot be multiplied because the " +
                     "number of columns of matrix A is not equal to the number of rows of matrix B.");
         }
 

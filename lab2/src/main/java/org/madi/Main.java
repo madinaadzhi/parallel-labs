@@ -33,8 +33,8 @@ public class Main {
         matrix2.print();
         System.out.println();
 
-        Striped striped = new Striped();
-        Matrix stripedResult = new Matrix(striped.multiply(matrix1, matrix2).getMatrix());
+        Striped striped = new Striped(matrix1, matrix2, 4);
+        Matrix stripedResult = new Matrix(striped.multiply().getMatrix());
         System.out.println("Striped result:");
         stripedResult.print();
 

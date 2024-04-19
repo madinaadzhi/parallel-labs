@@ -28,6 +28,10 @@ public class Matrix {
         return matrix[i][j];
     }
 
+    public int[] getRow(int index) {
+        return matrix[index];
+    }
+
     public void set(int i, int j, int value) {
         matrix[i][j] = value;
     }
