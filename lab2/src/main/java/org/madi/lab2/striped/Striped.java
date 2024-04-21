@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 @Getter
 @Setter
-@RequiredArgsConstructor
 public class Striped {
     private Matrix matrix1;
     private Matrix matrix2;

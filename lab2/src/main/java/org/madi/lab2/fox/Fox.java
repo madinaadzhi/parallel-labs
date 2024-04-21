@@ -11,7 +11,6 @@ import java.util.concurrent.Future;
 
 @Getter
 @Setter
-@RequiredArgsConstructor
 public class Fox {
     private Matrix matrix1;
     private Matrix matrix2;
