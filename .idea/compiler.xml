@@ -8,6 +8,8 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="lab3" />
+        <module name="mkr2" />
+        <module name="lab4" />
         <module name="lab1" />
         <module name="lab2" />
       </profile>
