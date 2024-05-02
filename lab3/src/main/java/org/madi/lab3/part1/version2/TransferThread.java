@@ -1,9 +1,9 @@
 package org.madi.lab3.part1.version2;
 
-import org.madi.lab3.part1.version1.Bank;
+import org.madi.lab3.part1.version2.Bank;
 
 public class TransferThread extends Thread {
-    private org.madi.lab3.part1.version1.Bank bank;
+    private Bank bank;
     private int fromAccount;
     private int maxAmount;
     private static final int REPS = 1000;

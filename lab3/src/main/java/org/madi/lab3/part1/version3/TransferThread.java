@@ -1,6 +1,6 @@
 package org.madi.lab3.part1.version3;
 
-import org.madi.lab3.part1.version1.Bank;
+import org.madi.lab3.part1.version3.Bank;
 
 public class TransferThread extends Thread {
     private Bank bank;

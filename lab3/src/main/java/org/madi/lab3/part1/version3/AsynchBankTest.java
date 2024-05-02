@@ -1,7 +1,7 @@
 package org.madi.lab3.part1.version3;
 
-import org.madi.lab3.part1.version1.Bank;
-import org.madi.lab3.part1.version1.TransferThread;
+import org.madi.lab3.part1.version3.Bank;
+import org.madi.lab3.part1.version3.TransferThread;
 
 public class AsynchBankTest {
     public static final int NACCOUNTS = 10;
