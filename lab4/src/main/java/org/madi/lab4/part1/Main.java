@@ -22,7 +22,7 @@ public class Main {
 
     private static void basicAnalysis() throws IOException {
         HashMap<Integer, Integer> result = new HashMap<>();
-        String content = Files.readString(Path.of("/Users/madinaadzhigeldieva/Documents/javaProject/parallel-labs/lab4/src/main/java/org/madi/lab4/part1/text.txt"));
+        String content = Files.readString(Path.of("/Users/madinaadzhigeldieva/Documents/javaProject/parallel-labs/lab4/src/main/java/org/madi/lab4/texts/text1.txt"));
         String[] words = content.split("\\s+");
         for (String word : words) {
             int length = word.length();
@@ -33,7 +33,7 @@ public class Main {
 
     private static void forkJoinAnalysis() {
         ForkJoinPool pool = ForkJoinPool.commonPool();
-        StatTextAnalysis task = new StatTextAnalysis("/Users/madinaadzhigeldieva/Documents/javaProject/parallel-labs/lab4/src/main/java/org/madi/lab4/part1/text.txt");
+        StatTextAnalysis task = new StatTextAnalysis("/Users/madinaadzhigeldieva/Documents/javaProject/parallel-labs/lab4/src/main/java/org/madi/lab4/texts/text1.txt");
         HashMap<Integer, Integer> result = pool.invoke(task);
         pool.shutdown();
         printStat(result);
