@@ -17,7 +17,7 @@ public class Block {
         int workersCnt = procCnt - 1;
         if (N % workersCnt != 0) {
             if (currProc == MASTER) {
-                System.out.println("It is impossible to allocate the specified number of calls to " + procCnt + " threads!");
+                System.out.println("It isn't possible to distribute the specified number of calls to " + procCnt + " threads!");
             }
             MPI.Finalize();
             return;
