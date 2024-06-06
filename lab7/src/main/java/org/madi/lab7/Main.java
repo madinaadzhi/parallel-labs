@@ -1,7 +1,6 @@
 package org.madi.lab7;
 
 import mpi.MPI;
-import mpi.Request;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,43 +52,6 @@ public class Main {
         }
     }
 
-    private static void asyncMultiply(int rank, int size, int arrSize, int[] arr1, int[] arr2, int[] res) {
-        int rowsPerProc = arrSize / size;
-        Request[] requests = new Request[5];
-
-        if (rank == 0) {
-            for (int dest = 1; dest < size; dest++) {
-                requests[0] = MPI.COMM_WORLD.Isend(arr1, dest * rowsPerProc * arrSize, rowsPerProc * arrSize, MPI.INT, dest, 0);
-            }
-        } else {
-            MPI.COMM_WORLD.Irecv(arr1, rank * rowsPerProc * arrSize, rowsPerProc * arrSize, MPI.INT, 0, 0).Wait();
-        }
-
-        for (int source = 0; source < size; source++) {
-            if (rank == source) {
-                MPI.COMM_WORLD.Isend(arr2, 0, arrSize * arrSize, MPI.INT, (rank + 1) % size, 0);
-            } else if (rank == (source + 1) % size) {
-                MPI.COMM_WORLD.Irecv(arr2, 0, arrSize * arrSize, MPI.INT, source, 0).Wait();
-            }
-        }
-
-        for (int i = rank * rowsPerProc; i < (rank + 1) * rowsPerProc; i++) {
-            for (int j = 0; j < arrSize; j++) {
-                for (int k = 0; k < arrSize; k++) {
-                    res[i * arrSize + j] += arr1[i * arrSize + k] * arr2[k * arrSize + j];
-                }
-            }
-        }
-
-        if (rank == 0) {
-            for (int source = 1; source < size; source++) {
-                MPI.COMM_WORLD.Recv(res, source * rowsPerProc * arrSize, rowsPerProc * arrSize, MPI.INT, source, 0);
-            }
-        } else {
-            MPI.COMM_WORLD.Isend(res, rank * rowsPerProc * arrSize, rowsPerProc * arrSize, MPI.INT, 0, 0);
-        }
-    }
-
     public static void collectMultiply(int size, int n, int[] arr1, int[] arr2, int[] res) {
         int rowsPerProc = n / size;
         int[] blockMultiplied = new int[rowsPerProc * n];
@@ -127,7 +89,6 @@ public class Main {
             long startTime = System.currentTimeMillis();
             for (int i = 0; i < expCnt; i++) {
                 syncMultiply(rank, size, arrSize, arr1, arr2, result);
-//                asyncMultiply(rank, size, arrSize, arr1, arr2, result);
 //                collectMultiply(size, arrSize, arr1, arr2, result);
             }
             MPI.COMM_WORLD.Barrier();
