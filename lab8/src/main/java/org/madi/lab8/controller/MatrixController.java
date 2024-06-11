@@ -31,12 +31,12 @@ public class MatrixController {
                             @RequestParam("jsonMatrix2") String jsonMatrix2,
                             @ModelAttribute("properties") Properties properties,
                             Model model) throws JsonProcessingException {
-        int[][] matrix1FromJson = matrixService.getMatrixFromJson(jsonMatrix1);
-        Matrix matrix1 = new Matrix(matrix1FromJson.length, matrix1FromJson[0].length);
-        matrixService.convertJsonToMatrix(matrix1FromJson, matrix1);
-        int[][] matrix2FromJson = matrixService.getMatrixFromJson(jsonMatrix2);
-        Matrix matrix2 = new Matrix(matrix2FromJson.length, matrix2FromJson[0].length);
-        matrixService.convertJsonToMatrix(matrix2FromJson, matrix2);
+        int[][] arr1FromJson = matrixService.convertIntArrToMatrix(jsonMatrix1);
+        Matrix matrix1 = new Matrix(arr1FromJson.length, arr1FromJson[0].length);
+        matrixService.convertIntArrToMatrix(arr1FromJson, matrix1);
+        int[][] arr2FromJson = matrixService.convertIntArrToMatrix(jsonMatrix2);
+        Matrix matrix2 = new Matrix(arr2FromJson.length, arr2FromJson[0].length);
+        matrixService.convertIntArrToMatrix(arr2FromJson, matrix2);
 
         long startTime = System.currentTimeMillis();
         Matrix result = matrixService.multiply(matrix1, matrix2, properties.getThreadsCnt());
@@ -55,9 +55,9 @@ public class MatrixController {
         return "index2";
     }
 
-    @PostMapping("/receiveResult")
-    public String receiveResults(@ModelAttribute("properties") Properties properties,
-                                 Model model) throws IOException {
+    @PostMapping("/getResults")
+    public String getResults(@ModelAttribute("properties") Properties properties,
+                             Model model) throws IOException {
         System.out.println("Generating...");
         Matrix matrix1 = matrixService.generateRandomMatrix(properties.getMatrixSize(), properties.getMatrixSize());
         Matrix matrix2 = matrixService.generateRandomMatrix(properties.getMatrixSize(), properties.getMatrixSize());

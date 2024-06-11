@@ -1,15 +1,11 @@
 package org.madi.lab8.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.commons.lang.StringEscapeUtils;
 import org.json.JSONArray;
-import org.json.JSONObject;
 import org.madi.lab8.domain.Matrix;
 import org.madi.lab8.utils.FoxThread;
 import org.springframework.stereotype.Service;
@@ -18,7 +14,6 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -39,7 +34,7 @@ public class MatrixService {
         return matrix;
     }
 
-    public void receiveJsonMatrix(int[][] matrix, String fileName) throws IOException {
+    public void getJsonMatrix(int[][] matrix, String fileName) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonMatrix = objectMapper.writeValueAsString(matrix);
         BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
@@ -47,8 +42,8 @@ public class MatrixService {
         writer.close();
     }
 
-    public int[][] getMatrixFromJson(String jsonMatrix1) throws JsonProcessingException {
-        JSONArray jsonArray = new JSONArray(jsonMatrix1);
+    public int[][] convertIntArrToMatrix(String jsonMatrix) throws JsonProcessingException {
+        JSONArray jsonArray = new JSONArray(jsonMatrix);
         int rows = jsonArray.length();
         int cols = jsonArray.getJSONArray(0).length();
         int[][] matrix = new int[rows][cols];
@@ -61,10 +56,10 @@ public class MatrixService {
         return matrix;
     }
 
-    public void convertJsonToMatrix(int[][] matrix1FromJson, Matrix matrix1) {
-        for (int i = 0; i < matrix1FromJson.length; i++) {
-            for (int j = 0; j < matrix1FromJson[0].length; j++) {
-                matrix1.getMatrix()[i][j] = matrix1FromJson[i][j];
+    public void convertIntArrToMatrix(int[][] arr, Matrix matrix) {
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[0].length; j++) {
+                matrix.getMatrix()[i][j] = arr[i][j];
             }
         }
     }
