@@ -27,8 +27,8 @@ public class MatrixController {
     }
 
     @PostMapping("/multiply")
-    public String calculate(@ModelAttribute("jsonMatrix1") String jsonMatrix1,
-                            @ModelAttribute("jsonMatrix2") String jsonMatrix2,
+    public String calculate(@RequestParam("jsonMatrix1") String jsonMatrix1,
+                            @RequestParam("jsonMatrix2") String jsonMatrix2,
                             @ModelAttribute("properties") Properties properties,
                             Model model) throws JsonProcessingException {
         int[][] matrix1FromJson = matrixService.getMatrixFromJson(jsonMatrix1);
